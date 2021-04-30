@@ -1,4 +1,5 @@
-#include "Player.h"
+#include "player.h"
+#include "TextureHolder.h"
 
 Player::Player()
 {
@@ -8,12 +9,19 @@ Player::Player()
 
 	// Associate a texture with the sprite
 	// !!Watch this space!!
-	m_Texture.loadFromFile("graphics/player.png");
-	m_Sprite.setTexture(m_Texture);
+	m_Sprite = Sprite(TextureHolder::GetTexture(
+		"graphics/player.png"));
 
 	// Set the origin of the sprite to the centre, 
 	// for smooth rotation
 	m_Sprite.setOrigin(25, 25);
+}
+
+void Player::resetPlayerStats()
+{
+	m_Speed = START_SPEED;
+	m_Health = START_HEALTH;
+	m_MaxHealth = START_HEALTH;
 }
 
 void Player::spawn(IntRect arena, Vector2f resolution, int tileSize)
@@ -201,3 +209,4 @@ void Player::increaseHealthLevel(int amount)
 		m_Health = m_MaxHealth;
 	}
 }
+
